@@ -81,4 +81,7 @@
   .center {
     @apply flex items-center justify-center;
   }
+  ::selection {
+    background: rgb(209 250 229);
+  }
 }
