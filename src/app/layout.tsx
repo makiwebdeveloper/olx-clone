@@ -1,3 +1,6 @@
+import Navbar from "@/components/Navbar";
+import Providers from "@/components/Providers";
+import { cn } from "@/lib/cn";
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 
@@ -15,7 +18,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          "text-zinc-800 bg-zinc-50 pt-16 2xl:pt-24 2xl:text-xl",
+          inter.className
+        )}
+      >
+        <Providers>
+          <Navbar />
+          <section className="container">{children}</section>
+        </Providers>
+      </body>
     </html>
   );
 }
