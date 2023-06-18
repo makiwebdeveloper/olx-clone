@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Providers from "@/components/Providers";
+import { Toaster } from "@/components/ui/Toaster";
 import { cn } from "@/lib/cn";
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Navbar />
           <section className="container">{children}</section>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );
