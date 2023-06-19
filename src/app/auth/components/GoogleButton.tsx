@@ -14,7 +14,9 @@ export default function GoogleButton() {
     setIsLoading(true);
 
     try {
-      signIn("google");
+      signIn("google", {
+        callbackUrl: "/",
+      });
     } catch (err) {
       toast({
         title: "Error",
@@ -27,7 +29,11 @@ export default function GoogleButton() {
   };
 
   return (
-    <Button className="gap-2 w-full" onClick={loginWithGoogle}>
+    <Button
+      isLoading={isLoading}
+      className="gap-2 w-full"
+      onClick={loginWithGoogle}
+    >
       <Icons.google className="w-6 h-6" /> Sign in with Google
     </Button>
   );

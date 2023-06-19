@@ -1,6 +1,14 @@
+import { getAuthSession } from "@/lib/auth";
 import GoogleButton from "./components/GoogleButton";
+import { redirect } from "next/navigation";
 
-export default function Auth() {
+export default async function Auth() {
+  const session = await getAuthSession();
+
+  if (session?.user) {
+    redirect("/");
+  }
+
   return (
     <main className="absolute inset-0 center">
       <div className="container text-center w-[500px] 2xl:w-[750px] space-y-4">

@@ -56,9 +56,6 @@ export const authOptions: NextAuthOptions = {
         username: dbUser.username,
       };
     },
-    redirect() {
-      return "/";
-    },
   },
   session: {
     strategy: "jwt",

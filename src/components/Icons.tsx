@@ -1,7 +1,18 @@
-import { User, LucideProps } from "lucide-react";
+import {
+  User,
+  LucideProps,
+  Heart,
+  ImagePlus,
+  Settings2,
+  LogOut,
+} from "lucide-react";
 
 const Icons = {
   user: User,
+  heart: Heart,
+  creaePost: ImagePlus,
+  settings: Settings2,
+  logout: LogOut,
   logo: (props: LucideProps) => (
     <svg viewBox="18.832 22.321 330.281 188.327" {...props}>
       <g
