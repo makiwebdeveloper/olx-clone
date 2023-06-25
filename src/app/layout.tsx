@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "text-zinc-800 bg-zinc-50 pt-16 2xl:pt-24 2xl:text-xl",
+          "text-zinc-800 bg-zinc-50 pt-20 2xl:pt-28 2xl:text-xl",
           inter.className
         )}
       >
