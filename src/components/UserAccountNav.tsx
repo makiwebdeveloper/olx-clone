@@ -47,7 +47,7 @@ export default function UserAccountNav({ user }: Props) {
           asChild
           className="cursor-pointer flex items-center gap-2"
         >
-          <Link href="/create-post">
+          <Link href="/posts/create">
             <Icons.creaePost className="w-5 h-5" /> Create post
           </Link>
         </DropdownMenuItem>
@@ -55,7 +55,7 @@ export default function UserAccountNav({ user }: Props) {
           asChild
           className="cursor-pointer flex items-center gap-2"
         >
-          <Link href="/favorites">
+          <Link href="/posts/favorites">
             <Icons.heart className="w-5 h-5" /> Favorites
           </Link>
         </DropdownMenuItem>

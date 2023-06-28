@@ -43,4 +43,53 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+
+  posts Post[]
+}
+
+enum Currency {
+  USD
+  EUR
+  UAH
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  title       String
+  description String   @default("")
+  price       Int
+  currency    Currency @default(UAH)
+  images      String[]
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id")
+}
+
+model CategoryGroup {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String
+
+  categories Category[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String
+
+  posts Post[]
+
+  categoryGroup   CategoryGroup @relation(fields: [categoryGroupId], references: [id])
+  categoryGroupId String        @map("category_group_id")
 }

@@ -15,7 +15,7 @@ export default async function Auth() {
         <h1 className="text-6xl 2xl:text-8xl font-bold">
           Welcome to our <i className="text-emerald-400">auth</i> page!
         </h1>
-        <p className="text-zinc-400">
+        <p className="text-slate-400">
           By logging in, you agree to our Terms of Service and Privacy Policy.
           Please ensure that you are accessing this page from a trusted device
           and network.
