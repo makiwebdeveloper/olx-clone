@@ -22,12 +22,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/Form";
+import axios, { AxiosError } from "axios";
+import { useToast } from "@/hooks/useToast";
+import { useRouter } from "next/navigation";
 
 interface Props {
   categories: CategoryGroup[];
 }
 
 export default function CreatePostForm({ categories }: Props) {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<PostValidatorType>({
     resolver: zodResolver(PostValidator),
     defaultValues: {
@@ -41,7 +47,18 @@ export default function CreatePostForm({ categories }: Props) {
   });
 
   async function onSubmit(data: PostValidatorType) {
-    alert(JSON.stringify(data, null, 2));
+    try {
+      await axios.post("/api/posts", {
+        ...data,
+      });
+
+      router.push("/");
+    } catch (e) {
+      toast({
+        title: "Failed to create post",
+        description: "Something went wrong. Please try later",
+      });
+    }
   }
 
   return (
