@@ -1,12 +1,11 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/cn";
 import { Loader2 } from "lucide-react";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm 2xl:text-xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+  "inline-flex items-center justify-center rounded-md 2xl:text-xl font-medium transition-colors outline-none disabled:opacity-50 disabled:pointer-events-none",
   {
     variants: {
       variant: {
@@ -40,12 +39,13 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, isLoading, children, ...props }, ref) => {
+  ({ className, variant, size, isLoading, children, type, ...props }, ref) => {
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         disabled={isLoading}
+        type={type}
         {...props}
       >
         {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}

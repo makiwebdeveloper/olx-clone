@@ -21,13 +21,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "text-zinc-800 bg-zinc-50 pt-20 2xl:pt-28 2xl:text-xl",
+          "text-slate-800 bg-zinc-50 pt-[60px] sm:pt-20 2xl:pt-28 2xl:text-xl",
           inter.className
         )}
       >
         <Providers>
           <Navbar />
-          <section className="container">{children}</section>
+          <section className="sm:container">{children}</section>
         </Providers>
         <Toaster />
       </body>
