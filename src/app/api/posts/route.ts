@@ -39,3 +39,11 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const searchValue = searchParams.get("searchValue");
+  const categoryId = searchParams.get("categoryId");
+  const priceFrom = searchParams.get("priceFrom");
+  const priceTo = searchParams.get("priceTo");
+}

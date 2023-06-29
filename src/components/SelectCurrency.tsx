@@ -9,19 +9,18 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { currencies } from "@/utils";
+import { Currency } from "@prisma/client";
 
 interface Props {
-  field: any;
+  value: Currency;
+  onChange: (value: Currency) => void;
 }
 
-export default function SelectCurrency({ field }: Props) {
+export default function SelectCurrency({ value, onChange }: Props) {
   return (
-    <Select
-      {...field}
-      onValueChange={(value: "UAH" | "USD" | "EUR") => field.onChange(value)}
-    >
-      <SelectTrigger>
-        <SelectValue placeholder="UAH" />
+    <Select value={value} onValueChange={(value: Currency) => onChange(value)}>
+      <SelectTrigger className="bg-white">
+        <SelectValue>{value || "UAH"}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

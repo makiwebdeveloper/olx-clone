@@ -20,13 +20,14 @@ import { CategoryGroup } from "@/types/categories";
 import { ScrollArea } from "@/components/ui/ScrollArea";
 
 interface Props {
+  value?: string;
   categories: CategoryGroup[];
-  field: any;
+  onChange: (value: string) => void;
 }
 
-export default function SelectCategory({ categories, field }: Props) {
+export default function SelectCategory({ categories, onChange, value }: Props) {
   const [open, setOpen] = useState(false);
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState(value || "");
 
   const getCategoryNameById = useCallback((id: string) => {
     for (const obj of categories) {
@@ -40,7 +41,7 @@ export default function SelectCategory({ categories, field }: Props) {
   }, []);
 
   useEffect(() => {
-    field.onChange(categoryId);
+    onChange(categoryId);
   }, [categoryId]);
 
   return (
@@ -50,7 +51,7 @@ export default function SelectCategory({ categories, field }: Props) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal"
+          className="w-full justify-between font-normal bg-white hover:bg-white"
         >
           {categoryId ? getCategoryNameById(categoryId) : "Select category..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

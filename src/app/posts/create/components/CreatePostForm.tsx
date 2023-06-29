@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/Input";
 import { textareaVariants } from "@/components/ui/Textarea";
 import Button from "@/components/ui/Button";
 import UploadImages from "./UploadImages";
-import CategoriesSelect from "./SelectCategory";
-import CurrencySelect from "./SelectCurrency";
+import CategoriesSelect from "@/components/SelectCategory";
+import CurrencySelect from "@/components/SelectCurrency";
 import {
   Form,
   FormControl,
@@ -39,10 +39,9 @@ export default function CreatePostForm({ categories }: Props) {
     defaultValues: {
       title: "",
       description: "",
-      price: 1,
       currency: "UAH",
       categoryId: "",
-      images: [],
+      images: ["/"],
     },
   });
 
@@ -118,12 +117,16 @@ export default function CreatePostForm({ categories }: Props) {
             control={form.control}
             name="currency"
             render={({ field }) => {
-              const { ref, ...rest } = field;
               return (
                 <FormItem className="flex-1">
                   <FormLabel>Currency</FormLabel>
                   <FormControl>
-                    <CurrencySelect field={rest} />
+                    <CurrencySelect
+                      value={field.value}
+                      onChange={(value: "UAH" | "USD" | "EUR") =>
+                        field.onChange(value)
+                      }
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,7 +140,10 @@ export default function CreatePostForm({ categories }: Props) {
               <FormItem className="flex-1">
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <CategoriesSelect categories={categories} field={field} />
+                  <CategoriesSelect
+                    categories={categories}
+                    onChange={(value: string) => field.onChange(value)}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
