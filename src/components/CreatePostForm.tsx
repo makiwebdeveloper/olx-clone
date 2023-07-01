@@ -22,7 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/Form";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 
@@ -41,7 +41,7 @@ export default function CreatePostForm({ categories }: Props) {
       description: "",
       currency: "UAH",
       categoryId: "",
-      images: ["/"],
+      images: [],
     },
   });
 
@@ -141,6 +141,7 @@ export default function CreatePostForm({ categories }: Props) {
                 <FormLabel>Category</FormLabel>
                 <FormControl>
                   <CategoriesSelect
+                    value={field.value}
                     categories={categories}
                     onChange={(value: string) => field.onChange(value)}
                   />

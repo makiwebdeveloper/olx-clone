@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
-import { PostsSortEnum } from "@/types/search";
+import { PostsSortEnum } from "@/types/filters";
 import { postsSortTypes } from "@/utils";
 
 interface Props {
@@ -22,10 +22,11 @@ export default function SelectSortType({ onChange, value }: Props) {
       value={value}
       onValueChange={(value: PostsSortEnum) => onChange(value)}
     >
-      <SelectTrigger className="bg-white">
+      <SelectTrigger className="hover:bg-white">
         <SelectValue>
-          {postsSortTypes.find((item) => item.value === value)?.title ||
-            "Select sort type"}
+          {postsSortTypes.find((item) => item.value === value)?.title || (
+            <p className="text-gray-400 text-sm">Select sort type</p>
+          )}
         </SelectValue>
       </SelectTrigger>
       <SelectContent>

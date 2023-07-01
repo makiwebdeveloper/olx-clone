@@ -1,13 +1,10 @@
-import axios from "axios";
-import CreatePostForm from "./components/CreatePostForm";
-import { CategoryGroup } from "@/types/categories";
+import { getCategories } from "@/services/categories";
+import CreatePostForm from "@/components/CreatePostForm";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export default async function CreatePost() {
-  const { data: categories } = await axios.get<CategoryGroup[]>(
-    `${process.env.APP_URL}/api/categories`
-  );
+  const categories = await getCategories();
 
   return (
     <section className="bg-white shadow-sm p-6 2xl:p-10 rounded-lg">

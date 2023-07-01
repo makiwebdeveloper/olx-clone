@@ -12,20 +12,3 @@ export async function POST(req: Request) {
 
   return new Response(JSON.stringify(category));
 }
-
-export async function GET() {
-  const categories = await db.categoryGroup.findMany({
-    select: {
-      id: true,
-      name: true,
-      categories: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  });
-
-  return new Response(JSON.stringify(categories));
-}

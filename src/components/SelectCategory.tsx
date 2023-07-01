@@ -20,14 +20,13 @@ import { CategoryGroup } from "@/types/categories";
 import { ScrollArea } from "@/components/ui/ScrollArea";
 
 interface Props {
-  value?: string;
+  value: string;
   categories: CategoryGroup[];
   onChange: (value: string) => void;
 }
 
 export default function SelectCategory({ categories, onChange, value }: Props) {
   const [open, setOpen] = useState(false);
-  const [categoryId, setCategoryId] = useState(value || "");
 
   const getCategoryNameById = useCallback((id: string) => {
     for (const obj of categories) {
@@ -41,8 +40,8 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
   }, []);
 
   useEffect(() => {
-    onChange(categoryId);
-  }, [categoryId]);
+    onChange(value);
+  }, [value]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,9 +50,13 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal bg-white hover:bg-white"
+          className="w-full justify-between font-normal hover:bg-white"
         >
-          {categoryId ? getCategoryNameById(categoryId) : "Select category..."}
+          {value.length > 0 ? (
+            getCategoryNameById(value)
+          ) : (
+            <p className="text-gray-400 text-sm">Select category</p>
+          )}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -68,10 +71,8 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
                     value={category.id}
                     key={category.id}
                     onSelect={(currentCategoryId) => {
-                      setCategoryId(
-                        currentCategoryId === categoryId
-                          ? ""
-                          : currentCategoryId
+                      onChange(
+                        currentCategoryId === value ? "" : currentCategoryId
                       );
                       setOpen(false);
                     }}
@@ -79,7 +80,7 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",
-                        categoryId === category.id ? "opacity-100" : "opacity-0"
+                        value === category.id ? "opacity-100" : "opacity-0"
                       )}
                     />
                     {category.name}

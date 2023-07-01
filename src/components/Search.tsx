@@ -7,20 +7,13 @@ import Button from "./ui/Button";
 import { FilterX, Search as SearchIcon } from "lucide-react";
 import SelectCategory from "./SelectCategory";
 import { CategoryGroup } from "@/types/categories";
-import { PostsSortEnum } from "@/types/search";
+import { IFilters, PostsSortEnum } from "@/types/filters";
 import SelectSortType from "./SelectSortType";
 import SelectCurrency from "./SelectCurrency";
 import { Currency } from "@prisma/client";
 import { Label } from "./ui/Label";
-
-interface IFilters {
-  searchValue: string;
-  categoryId: string;
-  priceFrom: string;
-  priceTo: string;
-  sortType: PostsSortEnum | "";
-  currency: Currency;
-}
+import { cn } from "@/lib/cn";
+import { useToast } from "@/hooks/useToast";
 
 interface Props {
   categories: CategoryGroup[];
@@ -30,6 +23,7 @@ export default function Search({ categories }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const [filters, setFilters] = useState<IFilters>({
     searchValue: "",
@@ -37,15 +31,29 @@ export default function Search({ categories }: Props) {
     priceFrom: "",
     priceTo: "",
     sortType: "",
-    currency: Currency.UAH,
+    currency: "",
   });
 
   const handleSearchParams = useCallback(() => {
     let params = new URLSearchParams(window.location.search);
 
+    if (
+      (filters.priceFrom.length > 0 || filters.priceTo.length > 0) &&
+      filters.currency.length === 0
+    ) {
+      toast({
+        title: "Select currency",
+        description: "If you search by price you must select currency",
+      });
+      return;
+    }
+
     if (filters.priceTo.length > 0 && filters.priceFrom.length > 0) {
       if (Number(filters.priceFrom) > Number(filters.priceTo)) {
-        alert('"Price from" should be less than "Price to"');
+        toast({
+          title: "Incorrect price fields",
+          description: '"Price from" should be less than "Price to"',
+        });
         return;
       }
     }
@@ -70,7 +78,7 @@ export default function Search({ categories }: Props) {
       priceFrom: "",
       priceTo: "",
       sortType: "",
-      currency: Currency.UAH,
+      currency: "",
     });
   }, []);
 
@@ -83,7 +91,7 @@ export default function Search({ categories }: Props) {
     const sortType = (params.get("sortType") as PostsSortEnum) ?? "";
     const priceFrom = params.get("priceFrom") ?? "";
     const priceTo = params.get("priceTo") ?? "";
-    const currency = (params.get("currency") as Currency) ?? Currency.UAH;
+    const currency = (params.get("currency") as Currency) ?? "";
 
     setFilters({
       searchValue,
@@ -139,7 +147,17 @@ export default function Search({ categories }: Props) {
       </div>
       <div className="flex sm:gap-2">
         <div className="w-full">
-          <Label htmlFor="price-from">Price from</Label>
+          <Label
+            htmlFor="price-from"
+            className={cn(
+              filters.priceTo.length !== 0 &&
+                Number(filters.priceFrom) > Number(filters.priceTo)
+                ? "text-destructive"
+                : ""
+            )}
+          >
+            Price from
+          </Label>
           <Input
             id="price-from"
             value={filters.priceFrom}
@@ -151,7 +169,17 @@ export default function Search({ categories }: Props) {
           />
         </div>
         <div className="w-full">
-          <Label htmlFor="price-to">Price to</Label>
+          <Label
+            htmlFor="price-to"
+            className={cn(
+              filters.priceTo.length !== 0 &&
+                Number(filters.priceFrom) > Number(filters.priceTo)
+                ? "text-destructive"
+                : ""
+            )}
+          >
+            Price to
+          </Label>
           <Input
             id="price-to"
             value={filters.priceTo}
@@ -163,7 +191,17 @@ export default function Search({ categories }: Props) {
           />
         </div>
         <div className="w-full">
-          <Label htmlFor="currency">Currency</Label>
+          <Label
+            htmlFor="currency"
+            className={cn(
+              (filters.priceFrom.length > 0 || filters.priceTo.length > 0) &&
+                filters.currency.length === 0
+                ? "text-destructive"
+                : ""
+            )}
+          >
+            Currency
+          </Label>
           <SelectCurrency
             value={filters.currency}
             onChange={(value: Currency) =>
