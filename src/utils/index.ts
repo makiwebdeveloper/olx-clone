@@ -13,3 +13,5 @@ export const postsSortTypes: { title: string; value: PostsSortEnum }[] = [
 export function formatPrice(price: number): string {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
+
+export const postsPerPage = 2;

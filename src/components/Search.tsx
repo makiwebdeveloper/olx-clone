@@ -32,6 +32,7 @@ export default function Search({ categories }: Props) {
     priceTo: "",
     sortType: "",
     currency: "",
+    page: "",
   });
 
   const handleSearchParams = useCallback(() => {
@@ -79,10 +80,10 @@ export default function Search({ categories }: Props) {
       priceTo: "",
       sortType: "",
       currency: "",
+      page: "",
     });
   }, []);
 
-  // Set Initial Params
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
@@ -92,6 +93,7 @@ export default function Search({ categories }: Props) {
     const priceFrom = params.get("priceFrom") ?? "";
     const priceTo = params.get("priceTo") ?? "";
     const currency = (params.get("currency") as Currency) ?? "";
+    const page = params.get("page") ?? "";
 
     setFilters({
       searchValue,
@@ -100,6 +102,7 @@ export default function Search({ categories }: Props) {
       priceTo,
       sortType,
       currency,
+      page,
     });
   }, []);
 

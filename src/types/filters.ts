@@ -14,4 +14,5 @@ export interface IFilters {
   priceTo: string;
   sortType: PostsSortEnum | "";
   currency: Currency | "";
+  page: string;
 }

@@ -1,4 +1,4 @@
-[ ] - Pagination
 [ ] - Refactoring
 [ ] - SEO
 [ ] - Price convertation (usd => uah)
+[ ] - admin dashboard (+ change pagination options)
