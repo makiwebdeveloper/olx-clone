@@ -42,3 +42,11 @@ export async function getPosts({
 
   return posts;
 }
+
+export async function getPostById(id: string) {
+  return db.post.findUnique({
+    where: {
+      id,
+    },
+  });
+}

@@ -9,3 +9,7 @@ export const postsSortTypes: { title: string; value: PostsSortEnum }[] = [
   { title: "Newest", value: PostsSortEnum.NEWEST },
   { title: "Oldest", value: PostsSortEnum.OLDEST },
 ];
+
+export function formatPrice(price: number): string {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}

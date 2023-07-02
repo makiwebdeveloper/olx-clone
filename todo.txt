@@ -1,3 +1,4 @@
-[ ] - (site)
+[ ] - Pagination
 [ ] - Refactoring
 [ ] - SEO
+[ ] - Price convertation (usd => uah)
