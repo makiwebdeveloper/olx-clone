@@ -124,7 +124,7 @@ export default function Search({ categories }: Props) {
           <FilterX className="w-5 h-5" />
         </Button>
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <div className="w-full">
           <Label htmlFor="category">Category</Label>
           <SelectCategory
@@ -145,52 +145,54 @@ export default function Search({ categories }: Props) {
           />
         </div>
       </div>
-      <div className="flex sm:gap-2">
-        <div className="w-full">
-          <Label
-            htmlFor="price-from"
-            className={cn(
-              filters.priceTo.length !== 0 &&
-                Number(filters.priceFrom) > Number(filters.priceTo)
-                ? "text-destructive"
-                : ""
-            )}
-          >
-            Price from
-          </Label>
-          <Input
-            id="price-from"
-            value={filters.priceFrom}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, priceFrom: e.target.value }))
-            }
-            type="number"
-            placeholder="Price from"
-          />
+      <div className="flex flex-col sm:flex-row gap-2">
+        <div className="w-full sm:w-2/3 flex gap-2">
+          <div className="w-full">
+            <Label
+              htmlFor="price-from"
+              className={cn(
+                filters.priceTo.length !== 0 &&
+                  Number(filters.priceFrom) > Number(filters.priceTo)
+                  ? "text-destructive"
+                  : ""
+              )}
+            >
+              Price from
+            </Label>
+            <Input
+              id="price-from"
+              value={filters.priceFrom}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, priceFrom: e.target.value }))
+              }
+              type="number"
+              placeholder="Price from"
+            />
+          </div>
+          <div className="w-full">
+            <Label
+              htmlFor="price-to"
+              className={cn(
+                filters.priceTo.length !== 0 &&
+                  Number(filters.priceFrom) > Number(filters.priceTo)
+                  ? "text-destructive"
+                  : ""
+              )}
+            >
+              Price to
+            </Label>
+            <Input
+              id="price-to"
+              value={filters.priceTo}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, priceTo: e.target.value }))
+              }
+              type="number"
+              placeholder="Price to"
+            />
+          </div>
         </div>
-        <div className="w-full">
-          <Label
-            htmlFor="price-to"
-            className={cn(
-              filters.priceTo.length !== 0 &&
-                Number(filters.priceFrom) > Number(filters.priceTo)
-                ? "text-destructive"
-                : ""
-            )}
-          >
-            Price to
-          </Label>
-          <Input
-            id="price-to"
-            value={filters.priceTo}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, priceTo: e.target.value }))
-            }
-            type="number"
-            placeholder="Price to"
-          />
-        </div>
-        <div className="w-full">
+        <div className="w-full sm:w-1/3">
           <Label
             htmlFor="currency"
             className={cn(
