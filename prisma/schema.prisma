@@ -44,7 +44,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  posts Post[]
+  posts         Post[]
+  favoritePosts FavoritePost[]
 }
 
 enum Currency {
@@ -69,6 +70,18 @@ model Post {
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String   @map("category_id")
+
+  favoritePosts FavoritePost[]
+}
+
+model FavoritePost {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String @map("post_id")
 }
 
 model CategoryGroup {
