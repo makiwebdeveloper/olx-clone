@@ -1,4 +1,13 @@
+[ ] - Post page
+[ ] - Favorites page
+[ ] - Profile page 
+[ ] - Settings
+
 [ ] - Refactoring
+
++--- not required ---+
+[ ] - parallel fetching
+
 [ ] - SEO
 [ ] - Price convertation (usd => uah)
 [ ] - admin dashboard (+ change pagination options)

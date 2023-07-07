@@ -2,11 +2,11 @@
 
 import { DOTS, usePagination } from "@/hooks/usePagination";
 import Button from "./ui/Button";
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { StepBack, StepForward } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { postsPerPage } from "@/utils";
+import Icons from "./Icons";
 
 interface Props {
   dataLength: number;
@@ -76,7 +76,7 @@ export default function Pagination({
           disabled={currentPage === 1}
           className="w-8 h-8 p-2 sm:w-12 sm:h-10 sm:p-4 2xl:px-0"
         >
-          <StepBack />
+          <Icons.stepBack />
         </Button>
       </li>
       {paginationRange.map((pageNumber, index) => (
@@ -101,7 +101,7 @@ export default function Pagination({
           disabled={currentPage === lastPage}
           className="w-8 h-8 p-2 sm:w-12 sm:h-10 sm:p-4 2xl:px-0"
         >
-          <StepForward />
+          <Icons.stepForward />
         </Button>
       </li>
     </ul>

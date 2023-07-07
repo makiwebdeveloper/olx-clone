@@ -66,5 +66,17 @@ export async function getPostById(id: string) {
     where: {
       id,
     },
+    select: {
+      id: true,
+      createdAt: true,
+      updatedAt: true,
+      title: true,
+      description: true,
+      price: true,
+      currency: true,
+      images: true,
+      user: true,
+      category: true,
+    },
   });
 }

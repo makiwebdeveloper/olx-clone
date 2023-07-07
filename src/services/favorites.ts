@@ -8,15 +8,28 @@ export async function getFavorites() {
     return null;
   }
 
-  const favoritesData = await db.favoritePost.findMany({
+  const favorites = await db.favoritePost.findMany({
     where: {
       userId: session.user.id,
     },
-    select: {
-      post: true,
+  });
+
+  return favorites;
+}
+
+export async function getFavoriteById(postId: string) {
+  const session = await getAuthSession();
+
+  if (!session?.user) {
+    return null;
+  }
+
+  const favorite = await db.favoritePost.findFirst({
+    where: {
+      postId,
+      userId: session.user.id,
     },
   });
 
-  const favorites = favoritesData.map((fav) => fav.post);
-  return favorites;
+  return favorite;
 }

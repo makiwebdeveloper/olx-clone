@@ -2,7 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/cn";
-import { Loader2 } from "lucide-react";
+import Icons from "../Icons";
 
 export const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md 2xl:text-xl font-medium transition-colors outline-none disabled:opacity-50 disabled:pointer-events-none",
@@ -12,7 +12,8 @@ export const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-white hover:text-accent-foreground",
+        outline:
+          "border border-input bg-white hover:text-accent-foreground hover:bg-accent",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -47,7 +48,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         {...props}
       >
-        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+        {isLoading ? (
+          <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+        ) : null}
         {children}
       </button>
     );

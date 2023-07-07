@@ -9,16 +9,12 @@ export async function GET() {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    const favoritesData = await db.favoritePost.findMany({
+    const favorites = await db.favoritePost.findMany({
       where: {
         userId: session.user.id,
       },
-      select: {
-        post: true,
-      },
     });
 
-    const favorites = favoritesData.map((fav) => fav.post);
     return new Response(JSON.stringify(favorites));
   } catch (error) {
     return new Response("Failed to get favorite posts. Please try later", {

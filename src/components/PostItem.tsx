@@ -1,37 +1,18 @@
 "use client";
 
 import { formatPrice } from "@/utils";
-import { Post } from "@prisma/client";
+import { FavoritePost, Post } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./ui/Button";
-import { Heart } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import ToggleFavoriteButton from "./ToggleFavoriteButton";
 
 interface Props {
   post: Post;
-  isFavorite: boolean;
+  initialFavorites: FavoritePost[] | null;
   isAuth: boolean;
 }
 
-export default function PostItem({ post, isFavorite, isAuth }: Props) {
-  const queryClient = useQueryClient();
-
-  const { mutate: toggleFavorite } = useMutation(
-    async (postId: string) => {
-      await axios.post("/api/posts/favorites", {
-        postId,
-      });
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["favorites"]);
-      },
-    }
-  );
-
+export default function PostItem({ post, initialFavorites, isAuth }: Props) {
   return (
     <Link
       href={`/posts/${post.id}`}
@@ -54,18 +35,10 @@ export default function PostItem({ post, isFavorite, isAuth }: Props) {
             {formatPrice(post.price)} {post.currency}
           </p>
           {isAuth ? (
-            <Button
-              className={cn(
-                "h-fit w-fit p-2 bg-zinc-300 hover:bg-pink-400",
-                isFavorite && "bg-pink-300"
-              )}
-              onClick={(e) => {
-                e.preventDefault();
-                toggleFavorite(post.id);
-              }}
-            >
-              <Heart className="w-5 h-5" />
-            </Button>
+            <ToggleFavoriteButton
+              postId={post.id}
+              initialFavorites={initialFavorites}
+            />
           ) : null}
         </div>
       </div>

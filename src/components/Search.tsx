@@ -4,7 +4,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { Input } from "./ui/Input";
 import Button from "./ui/Button";
-import { FilterX, Search as SearchIcon } from "lucide-react";
 import SelectCategory from "./SelectCategory";
 import { CategoryGroup } from "@/types/categories";
 import { IFilters, PostsSortEnum } from "@/types/filters";
@@ -14,6 +13,7 @@ import { Currency } from "@prisma/client";
 import { Label } from "./ui/Label";
 import { cn } from "@/lib/cn";
 import { useToast } from "@/hooks/useToast";
+import Icons from "./Icons";
 
 interface Props {
   categories: CategoryGroup[];
@@ -121,10 +121,10 @@ export default function Search({ categories }: Props) {
         </div>
         <Button onClick={handleSearchParams} className="gap-1">
           <p className="hidden sm:block">Search</p>{" "}
-          <SearchIcon className="w-5 h-5" />
+          <Icons.search className="w-5 h-5" />
         </Button>
         <Button variant="destructive" onClick={removeFilters}>
-          <FilterX className="w-5 h-5" />
+          <Icons.filter className="w-5 h-5" />
         </Button>
       </div>
       <div className="flex flex-col sm:flex-row gap-2">

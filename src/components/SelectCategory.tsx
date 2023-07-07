@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@/lib/cn";
 import Button from "@/components/ui/Button";
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/Popover";
 import { CategoryGroup } from "@/types/categories";
 import { ScrollArea } from "@/components/ui/ScrollArea";
+import Icons from "./Icons";
 
 interface Props {
   value: string;
@@ -55,9 +55,9 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
           {value.length > 0 ? (
             getCategoryNameById(value)
           ) : (
-            <p className="text-gray-400 text-sm">Select category</p>
+            <p className="text-gray-400 2xl:text-xl">Price from</p>
           )}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <Icons.chevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0" align="start">
@@ -77,7 +77,7 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
                       setOpen(false);
                     }}
                   >
-                    <Check
+                    <Icons.check
                       className={cn(
                         "mr-2 h-4 w-4",
                         value === category.id ? "opacity-100" : "opacity-0"

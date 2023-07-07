@@ -25,7 +25,7 @@ export default function SelectCurrency({ value, onChange }: Props) {
           {value.length > 0 ? (
             value
           ) : (
-            <p className="text-gray-400 text-sm">Select currency</p>
+            <p className="text-gray-400 2xl:text-xl">Select currency</p>
           )}
         </SelectValue>
       </SelectTrigger>

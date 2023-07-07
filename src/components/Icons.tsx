@@ -5,6 +5,16 @@ import {
   ImagePlus,
   Settings2,
   LogOut,
+  ArrowLeft,
+  ArrowRight,
+  StepForward,
+  StepBack,
+  FilterX,
+  Search,
+  Check,
+  ChevronsUpDown,
+  XSquare,
+  Loader2,
 } from "lucide-react";
 
 const Icons = {
@@ -12,7 +22,17 @@ const Icons = {
   heart: Heart,
   creaePost: ImagePlus,
   settings: Settings2,
+  arrowLeft: ArrowLeft,
+  arrowRight: ArrowRight,
   logout: LogOut,
+  stepForward: StepForward,
+  stepBack: StepBack,
+  filter: FilterX,
+  search: Search,
+  check: Check,
+  chevronsUpDown: ChevronsUpDown,
+  x: XSquare,
+  loader: Loader2,
   logo: (props: LucideProps) => (
     <svg viewBox="18.832 22.321 330.281 188.327" {...props}>
       <g

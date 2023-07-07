@@ -3,8 +3,8 @@
 import Button from "@/components/ui/Button";
 import { useToast } from "@/hooks/useToast";
 import { UploadDropzone } from "@/lib/uploadthing";
-import { XSquare } from "lucide-react";
 import Image from "next/image";
+import Icons from "./Icons";
 
 interface Props {
   images: string[];
@@ -75,7 +75,7 @@ export default function UploadImages({ images, setImages }: Props) {
               className="transition hidden hover:block peer-hover/image:block absolute top-3 right-3 p-1 h-auto"
               onClick={() => removeByUrl(image)}
             >
-              <XSquare className="w-4 h-4" />
+              <Icons.x className="w-4 h-4" />
             </Button>
           </div>
         ))}

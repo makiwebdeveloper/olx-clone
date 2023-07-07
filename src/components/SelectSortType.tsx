@@ -25,7 +25,7 @@ export default function SelectSortType({ onChange, value }: Props) {
       <SelectTrigger className="hover:bg-white">
         <SelectValue>
           {postsSortTypes.find((item) => item.value === value)?.title || (
-            <p className="text-gray-400 text-sm">Select sort type</p>
+            <p className="text-gray-400 2xl:text-xl">Select sort type</p>
           )}
         </SelectValue>
       </SelectTrigger>
