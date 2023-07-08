@@ -11,7 +11,7 @@ export default async function CreatePost() {
       <h1 className="text-4xl 2xl:text-6xl font-bold">Create post</h1>
       <p className="text-slate-400 mb-4 mt-2">
         Easily sell your products and services by creating a post on our Olx
-        Clone app.
+        Clone app
       </p>
       <CreatePostForm categories={categories} />
     </main>

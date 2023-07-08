@@ -3,15 +3,14 @@
 import Icons from "@/components/Icons";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import { FavoritePost } from "@prisma/client";
+import { Favorite } from "@/types/favorites";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 
 interface Props {
   postId: string;
-  initialFavorites: FavoritePost[] | null;
+  initialFavorites: Favorite[] | null;
   withText?: boolean;
   className?: string;
 }
@@ -28,7 +27,7 @@ export default function ToggleFavoriteButton({
   const { data: favorites } = useQuery(
     ["favorites"],
     async () => {
-      const { data: favorites } = await axios.get<FavoritePost[]>(
+      const { data: favorites } = await axios.get<Favorite[]>(
         "/api/posts/favorites"
       );
 
@@ -53,7 +52,7 @@ export default function ToggleFavoriteButton({
     }
   );
 
-  const favorite = favorites?.find((fav) => fav.postId === postId);
+  const favorite = favorites?.find((fav) => fav.post.id === postId);
 
   return (
     <Button

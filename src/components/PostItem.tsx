@@ -1,14 +1,15 @@
 "use client";
 
 import { formatPrice } from "@/utils";
-import { FavoritePost, Post } from "@prisma/client";
+import { Post } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import ToggleFavoriteButton from "./ToggleFavoriteButton";
+import { Favorite } from "@/types/favorites";
 
 interface Props {
   post: Post;
-  initialFavorites: FavoritePost[] | null;
+  initialFavorites: Favorite[] | null;
   isAuth: boolean;
 }
 

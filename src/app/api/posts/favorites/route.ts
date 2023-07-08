@@ -1,5 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { FavoriteSelect } from "@/services/favorites";
 
 export async function GET() {
   try {
@@ -13,6 +14,7 @@ export async function GET() {
       where: {
         userId: session.user.id,
       },
+      select: FavoriteSelect,
     });
 
     return new Response(JSON.stringify(favorites));
@@ -38,9 +40,7 @@ export async function POST(req: Request) {
         postId,
         userId: session.user.id,
       },
-      select: {
-        post: true,
-      },
+      select: FavoriteSelect,
     });
 
     if (favorites.some((fav) => fav.post.id === postId)) {

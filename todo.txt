@@ -1,9 +1,12 @@
-[ ] - Post page
+[X] - Post page
 [ ] - Favorites page
 [ ] - Profile page 
 [ ] - Settings
 
 [ ] - Refactoring
+
+[ ] - try catch services
+[ ] - title, desc styles
 
 +--- not required ---+
 [ ] - parallel fetching
