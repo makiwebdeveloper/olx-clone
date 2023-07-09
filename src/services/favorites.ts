@@ -1,6 +1,7 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Favorite } from "@/types/favorites";
+import { Favorite, FavoritesData } from "@/types/favorites";
+import { postsPerPage } from "@/utils";
 
 export const FavoriteSelect = {
   id: true,
@@ -9,21 +10,52 @@ export const FavoriteSelect = {
   user: true,
 };
 
-export async function getFavorites(): Promise<Favorite[] | null> {
+export async function getFavorites(
+  page?: number
+): Promise<FavoritesData | null> {
   const session = await getAuthSession();
 
   if (!session?.user) {
     return null;
   }
 
-  const favorites = await db.favoritePost.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    select: FavoriteSelect,
-  });
+  if (page) {
+    const perPage = postsPerPage;
+    const currentPage = Number(page) || 1;
+    const skip = (currentPage - 1) * perPage;
 
-  return favorites;
+    const favorites = await db.favoritePost.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      select: FavoriteSelect,
+      skip,
+      take: perPage,
+    });
+
+    const length = await db.favoritePost.count({
+      where: {
+        userId: session.user.id,
+      },
+    });
+
+    return { favorites, length };
+  } else {
+    const favorites = await db.favoritePost.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      select: FavoriteSelect,
+    });
+
+    const length = await db.favoritePost.count({
+      where: {
+        userId: session.user.id,
+      },
+    });
+
+    return { favorites, length };
+  }
 }
 
 export async function getFavoriteById(

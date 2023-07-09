@@ -10,6 +10,7 @@ import { getAuthSession } from "@/lib/auth";
 interface Props {
   searchParams: IFilters;
 }
+
 export const revalidate = 60;
 
 export default async function Home({ searchParams }: Props) {
@@ -17,14 +18,14 @@ export default async function Home({ searchParams }: Props) {
   const categories = await getCategories();
 
   const { posts, length: postsLength } = await getPosts(searchParams);
-  const favorites = await getFavorites();
+  const favoritesData = await getFavorites();
 
   return (
     <main className="p-6 sm:p-0">
       <Search categories={categories} />
       <Posts
         posts={posts}
-        initialFavorites={favorites}
+        initialFavorites={favoritesData?.favorites || null}
         isAuth={!!session?.user}
       />
       <Pagination

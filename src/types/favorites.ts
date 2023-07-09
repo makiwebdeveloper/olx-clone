@@ -6,3 +6,8 @@ export interface Favorite {
   post: Post;
   user: User;
 }
+
+export interface FavoritesData {
+  favorites: Favorite[];
+  length: number;
+}

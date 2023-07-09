@@ -18,17 +18,20 @@ export default function Posts({ posts, initialFavorites, isAuth }: Props) {
       </div>
     );
   }
+
   return (
-    <div className="my-4">
-      <div className="space-y-4">
-        {posts.map((post) => (
-          <PostItem
-            post={post}
-            key={post.id}
-            initialFavorites={initialFavorites}
-            isAuth={isAuth}
-          />
-        ))}
+    <div>
+      <div className="my-4">
+        <div className="space-y-4">
+          {posts.map((post) => (
+            <PostItem
+              post={post}
+              key={post.id}
+              initialFavorites={initialFavorites}
+              isAuth={isAuth}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

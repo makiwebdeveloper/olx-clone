@@ -22,7 +22,7 @@ export default async function page({ params }: Props) {
     redirect("/");
   }
 
-  const favorites = await getFavorites();
+  const favoritesData = await getFavorites();
 
   return (
     <main className="sm:space-y-6">
@@ -56,7 +56,7 @@ export default async function page({ params }: Props) {
         </div>
         <ToggleFavoriteButton
           postId={post.id}
-          initialFavorites={favorites}
+          initialFavorites={favoritesData?.favorites || null}
           withText
         />
       </section>

@@ -1,5 +1,5 @@
 [X] - Post page
-[ ] - Favorites page
+[X] - Favorites page
 [ ] - Profile page 
 [ ] - Settings
 

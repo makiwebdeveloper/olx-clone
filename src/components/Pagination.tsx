@@ -35,6 +35,13 @@ export default function Pagination({
     siblingCount: screenSize.width >= 640 ? 2 : 1,
   });
 
+  useEffect(() => {
+    setScreenSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }, []);
+
   function onChange(page: number) {
     let params = new URLSearchParams(window.location.search);
     params.set("page", String(page));
@@ -60,13 +67,6 @@ export default function Pagination({
       onChange(currentPage - 1);
     }
   };
-
-  useEffect(() => {
-    setScreenSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  }, []);
 
   return (
     <ul className={cn("flex gap-1 items-center", className)}>

@@ -3,7 +3,7 @@
 import Icons from "@/components/Icons";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import { Favorite } from "@/types/favorites";
+import { Favorite, FavoritesData } from "@/types/favorites";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -27,11 +27,11 @@ export default function ToggleFavoriteButton({
   const { data: favorites } = useQuery(
     ["favorites"],
     async () => {
-      const { data: favorites } = await axios.get<Favorite[]>(
+      const { data: favoritesData } = await axios.get<FavoritesData>(
         "/api/posts/favorites"
       );
 
-      return favorites;
+      return favoritesData.favorites;
     },
     {
       initialData: initialFavorites,
