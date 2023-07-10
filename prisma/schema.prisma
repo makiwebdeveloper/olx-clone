@@ -34,6 +34,11 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -42,6 +47,7 @@ model User {
   username      String?   @unique
   image         String?
   phone         String?   @default("")
+  role          Role      @default(USER)
   accounts      Account[]
   sessions      Session[]
 
@@ -66,7 +72,7 @@ model Post {
   currency    Currency @default(UAH)
   images      String[]
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
   category   Category @relation(fields: [categoryId], references: [id])
@@ -79,9 +85,9 @@ model FavoritePost {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
-  post   Post   @relation(fields: [postId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String @map("post_id")
 }
 
@@ -104,6 +110,6 @@ model Category {
 
   posts Post[]
 
-  categoryGroup   CategoryGroup @relation(fields: [categoryGroupId], references: [id])
+  categoryGroup   CategoryGroup @relation(fields: [categoryGroupId], references: [id], onDelete: Cascade)
   categoryGroupId String        @map("category_group_id")
 }

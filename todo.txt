@@ -3,12 +3,12 @@
 [X] - Profile page 
 [X] - Settings
 
-[ ] - Refactoring
 
-[ ] - try catch services
-[ ] - title, desc styles
 
 +--- not required ---+
+[ ] - try catch services
+[ ] - Refactoring
+[ ] - title, desc styles
 [ ] - parallel fetching
 
 [ ] - SEO
