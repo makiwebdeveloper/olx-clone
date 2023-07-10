@@ -18,7 +18,7 @@ export default function UserAvatar({ user, ...props }: Props) {
             src={user.image}
             alt="profile picture"
             referrerPolicy="no-referrer"
-            className="object-cover"
+            className="object-cover bg-zinc-100"
           />
         </div>
       ) : (

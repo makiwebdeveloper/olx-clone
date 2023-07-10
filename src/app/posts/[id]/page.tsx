@@ -71,7 +71,7 @@ export default async function page({ params }: Props) {
             </div>
           </div>
           <Link
-            href={`/users/${post.user.id}`}
+            href={`/profile/${post.user.username}`}
             className={cn(buttonVariants({ variant: "outline" }), "gap-1")}
           >
             <Icons.user className="w-4 h-4" /> Profile

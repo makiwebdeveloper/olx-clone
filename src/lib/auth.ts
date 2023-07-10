@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
             id: dbUser.id,
           },
           data: {
-            username: dbUser.email?.split("@")[0],
+            username: dbUser.email?.split("@")[0].toLowerCase(),
           },
         });
       }

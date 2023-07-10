@@ -84,7 +84,7 @@ export default function UserAccountNav({ user }: Props) {
           asChild
           className="cursor-pointer flex items-center gap-2"
         >
-          <Link href="/profile">
+          <Link href={`/profile/${user.username}`}>
             <Icons.user className="w-5 h-5" /> Profile
           </Link>
         </DropdownMenuItem>
