@@ -1,4 +1,3 @@
-import { PostsSortEnum } from "@/types/filters";
 import { z } from "zod";
 
 export const FiltersValidator = z.object({
