@@ -12,19 +12,40 @@ import Link from "next/link";
 import UserAvatar from "./UserAvatar";
 import Icons from "./Icons";
 import { signOut } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import { useToast } from "@/hooks/useToast";
+import axios from "axios";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, "name" | "email" | "image">;
+  user: User;
 }
 
 export default function UserAccountNav({ user }: Props) {
+  const { toast } = useToast();
+
+  const { data: currentUser } = useQuery(
+    ["currentUser"],
+    async () => {
+      try {
+        const res = await axios.get<{ user: User }>(`/api/users/${user.id}`);
+        return res.data.user;
+      } catch (error) {
+        toast({
+          title: "Can not get user",
+          variant: "destructive",
+        });
+      }
+    },
+    { initialData: user }
+  );
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
         <UserAvatar
           user={{
-            name: user.name || null,
-            image: user.image || null,
+            name: currentUser?.name || null,
+            image: currentUser?.image || null,
           }}
           className="h-10 w-10 2xl:h-14 2xl:w-14"
         />
@@ -32,12 +53,12 @@ export default function UserAccountNav({ user }: Props) {
       <DropdownMenuContent className="mt-4" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
-            {user.name && (
-              <p className="font-medium 2xl:text-xl">{user.name}</p>
+            {currentUser?.name && (
+              <p className="font-medium 2xl:text-xl">{currentUser?.name}</p>
             )}
-            {user.email && (
+            {currentUser?.email && (
               <p className="w-[200px] truncate text-sm 2xl:text-md text-muted-foreground">
-                {user.email}
+                {currentUser?.email}
               </p>
             )}
           </div>

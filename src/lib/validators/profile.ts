@@ -14,6 +14,12 @@ export const ProfileValidator = z.object({
       message: "Username must be at least 3 characters long",
     })
     .optional(),
+  phone: z
+    .string()
+    .min(10, {
+      message: "Phone must be at least 10 characters long",
+    })
+    .optional(),
   image: z.string().optional(),
 });
 

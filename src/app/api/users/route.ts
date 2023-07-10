@@ -7,7 +7,8 @@ export async function PUT(req: Request) {
   try {
     const body = await req.json();
 
-    const { email, name, username } = ProfileValidator.parse(body);
+    const { email, name, username, phone, image } =
+      ProfileValidator.parse(body);
 
     const session = await getAuthSession();
 
@@ -25,6 +26,8 @@ export async function PUT(req: Request) {
         data: {
           name,
           username,
+          phone,
+          image,
         },
       });
 

@@ -7,40 +7,35 @@ import { useToast } from "@/hooks/useToast";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Image from "next/image";
 import Icons from "./Icons";
+import { useState } from "react";
 
 interface Props {
-  images: string[];
-  setImages: (v: string[]) => void;
+  image: string | undefined;
+  setImage: (v: string | undefined) => void;
 }
 
-export default function UploadImages({ images, setImages }: Props) {
+export default function UploadProfileImage({ image, setImage }: Props) {
   const { toast } = useToast();
+  const [maxImagesLength] = useState(1);
 
-  const removeAllImage = () => {
-    setImages([]);
-  };
-
-  const removeByUrl = (url: string) => {
-    setImages(images.filter((image) => image !== url));
+  const removeImage = () => {
+    setImage(undefined);
   };
 
   const Dropzone = (
     <UploadDropzone
-      endpoint="postImages"
+      endpoint="profileImages"
       onClientUploadComplete={(res) => {
         if (res) {
-          const newImagesArray = [
-            ...images,
-            ...res.map((item) => item.fileUrl),
-          ];
-          if (newImagesArray.length > 3) {
+          const newImagesArray = [...res.map((item) => item.fileUrl)];
+          if (newImagesArray.length > maxImagesLength) {
             toast({
               title: "Uploading error",
-              description: "You can upload maximum 3 images",
+              description: `You can upload maximum ${maxImagesLength} images`,
               variant: "destructive",
             });
           } else {
-            setImages(newImagesArray);
+            setImage(newImagesArray[0]);
             toast({
               title: "Success",
               description: "Your images was uplaoding",
@@ -52,8 +47,7 @@ export default function UploadImages({ images, setImages }: Props) {
       onUploadError={(error: Error) => {
         toast({
           title: "Something went wrong",
-          description:
-            "Try again and make sure you upload no more than 3 images",
+          description: `Try again and make sure you upload no more than ${maxImagesLength} images`,
           variant: "destructive",
         });
       }}
@@ -62,9 +56,9 @@ export default function UploadImages({ images, setImages }: Props) {
 
   const Preview = (
     <div className="space-y-2">
-      <div className="flex flex-col sm:flex-row gap-5">
-        {images.map((image) => (
-          <div className="relative sm:flex-1 h-[200px]" key={image}>
+      <div className="flex flex-col sm:flex-row gap-5 items-center">
+        {image && (
+          <div className="relative w-[200px] h-[200px]" key={image}>
             <Image
               src={image}
               fill
@@ -75,23 +69,15 @@ export default function UploadImages({ images, setImages }: Props) {
             <Button
               variant="destructive"
               className="transition hidden hover:block peer-hover/image:block absolute top-3 right-3 p-1 h-auto"
-              onClick={() => removeByUrl(image)}
+              onClick={() => removeImage()}
             >
               <Icons.x className="w-4 h-4" />
             </Button>
           </div>
-        ))}
+        )}
       </div>
-      <Button size="sm" variant="destructive" onClick={removeAllImage}>
-        Remove all images
-      </Button>
     </div>
   );
 
-  return (
-    <div className="space-y-2">
-      {images.length < 3 ? Dropzone : null}
-      {images.length > 0 ? Preview : null}
-    </div>
-  );
+  return <div>{image ? Preview : Dropzone}</div>;
 }

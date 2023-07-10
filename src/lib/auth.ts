@@ -20,6 +20,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.image = token.picture;
         session.user.username = token.username;
+        session.user.phone = token.phone;
       }
 
       return session;

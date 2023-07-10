@@ -1,7 +1,7 @@
 [X] - Post page
 [X] - Favorites page
 [ ] - Profile page 
-[ ] - Settings
+[X] - Settings
 
 [ ] - Refactoring
 

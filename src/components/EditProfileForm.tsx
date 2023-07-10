@@ -19,28 +19,40 @@ import Button from "./ui/Button";
 import { useToast } from "@/hooks/useToast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import UploadProfileImage from "./UploadProfileImage";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function EditProfileForm() {
   const { toast } = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const form = useForm<ProfileValidatorType>({
     resolver: zodResolver(ProfileValidator),
   });
 
-  async function onSubmit(data: ProfileValidatorType) {
-    try {
+  const { mutate: saveChanges, isLoading } = useMutation(
+    async (data: ProfileValidatorType) => {
       await axios.put("/api/users", {
         ...data,
       });
-
-      router.push("/");
-    } catch (e) {
-      toast({
-        title: "Failed to edit profile",
-        description: "Something went wrong. Please try later",
-      });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["currentUser"]);
+        router.push("/");
+      },
+      onError: () => {
+        toast({
+          title: "Failed to edit profile",
+          description: "Something went wrong. Please try later",
+        });
+      },
     }
+  );
+
+  async function onSubmit(data: ProfileValidatorType) {
+    saveChanges(data);
   }
 
   return (
@@ -105,6 +117,47 @@ export default function EditProfileForm() {
                       e.target.value.length === 0 ? undefined : e.target.value
                     )
                   }
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Phone <span className="text-xs text-slate-400">(optional)</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="e.g. 123 456 7890"
+                  {...field}
+                  onChange={(e) =>
+                    field.onChange(
+                      e.target.value.length === 0 ? undefined : e.target.value
+                    )
+                  }
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel>
+                Image <span className="text-xs text-slate-400">(optional)</span>
+              </FormLabel>
+              <FormControl>
+                <UploadProfileImage
+                  image={field.value}
+                  setImage={(v: string | undefined) => field.onChange(v)}
                 />
               </FormControl>
               <FormMessage />
