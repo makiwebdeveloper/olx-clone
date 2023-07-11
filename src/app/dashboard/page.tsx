@@ -19,7 +19,7 @@ export default async function Dashboard() {
         </p>
       </section>
       <EditCategoryGroups initialCategories={categories} />
-      <EditCategories />
+      <EditCategories initialCategories={categories} />
       <EditPagination />
       <GiveRole />
     </main>
