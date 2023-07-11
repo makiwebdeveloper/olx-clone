@@ -6,6 +6,7 @@ import Button, { buttonVariants } from "@/components/ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 import { getFavorites } from "@/services/favorites";
+import { getPerPage } from "@/services/pagination";
 import { getPosts } from "@/services/posts";
 import { getUserByUsername } from "@/services/users";
 import Link from "next/link";
@@ -37,6 +38,7 @@ export default async function Profile({ params, searchParams }: Props) {
     page: searchParams.page,
   });
   const favoritesData = await getFavorites();
+  const perPage = (await getPerPage()) || 1;
 
   if (!user) {
     notFound();
@@ -84,6 +86,7 @@ export default async function Profile({ params, searchParams }: Props) {
         currentPage={Number(searchParams.page) || 1}
         dataLength={postsLength}
         className="center"
+        perPage={perPage}
       />
     </main>
   );

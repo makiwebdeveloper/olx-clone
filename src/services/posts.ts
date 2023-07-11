@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { IFilters, PostsSortEnum } from "@/types/filters";
-import { postsPerPage } from "@/utils";
 import { Prisma } from "@prisma/client";
+import { getPerPage } from "./pagination";
 
 export async function getPosts({
   searchValue,
@@ -42,7 +42,7 @@ export async function getPosts({
   };
 
   // PAGINATION
-  const perPage = postsPerPage;
+  const perPage = (await getPerPage()) || 1;
   const currentPage = Number(page) || 1;
   const skip = (currentPage - 1) * perPage;
 

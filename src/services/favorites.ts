@@ -1,7 +1,7 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Favorite, FavoritesData } from "@/types/favorites";
-import { postsPerPage } from "@/utils";
+import { getPerPage } from "./pagination";
 
 export const FavoriteSelect = {
   id: true,
@@ -20,7 +20,7 @@ export async function getFavorites(
   }
 
   if (page) {
-    const perPage = postsPerPage;
+    const perPage = (await getPerPage()) || 1;
     const currentPage = Number(page) || 1;
     const skip = (currentPage - 1) * perPage;
 
