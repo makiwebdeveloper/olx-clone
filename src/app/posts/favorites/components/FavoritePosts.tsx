@@ -12,11 +12,13 @@ import { useEffect } from "react";
 interface Props {
   initialFavorites: FavoritesData | null;
   currentPage: number;
+  perPage: number;
 }
 
 export default function FavoritePosts({
   initialFavorites,
   currentPage,
+  perPage,
 }: Props) {
   const session = useSession();
   const router = useRouter();
@@ -57,6 +59,7 @@ export default function FavoritePosts({
           className="center"
           currentPage={currentPage}
           dataLength={favoritesData.length}
+          perPage={perPage}
         />
       )}
     </div>

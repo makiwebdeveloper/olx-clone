@@ -28,16 +28,19 @@ interface Props {
 export default function SelectCategory({ categories, onChange, value }: Props) {
   const [open, setOpen] = useState(false);
 
-  const getCategoryNameById = useCallback((id: string) => {
-    for (const obj of categories) {
-      for (const item of obj.categories) {
-        if (item.id === id) {
-          return item.name;
+  const getCategoryNameById = useCallback(
+    (id: string) => {
+      for (const obj of categories) {
+        for (const item of obj.categories) {
+          if (item.id === id) {
+            return item.name;
+          }
         }
       }
-    }
-    return null;
-  }, []);
+      return null;
+    },
+    [categories]
+  );
 
   useEffect(() => {
     onChange(value);
@@ -55,7 +58,7 @@ export default function SelectCategory({ categories, onChange, value }: Props) {
           {value.length > 0 ? (
             getCategoryNameById(value)
           ) : (
-            <p className="text-gray-400 2xl:text-xl">Price from</p>
+            <p className="text-gray-400 2xl:text-xl">Select category</p>
           )}
           <Icons.chevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>

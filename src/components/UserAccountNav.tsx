@@ -92,6 +92,14 @@ export default function UserAccountNav({ user }: Props) {
           asChild
           className="cursor-pointer flex items-center gap-2"
         >
+          <Link href={`/dashboard`}>
+            <Icons.dashboard className="w-5 h-5" /> Dashboard
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          asChild
+          className="cursor-pointer flex items-center gap-2"
+        >
           <Link href="/settings">
             <Icons.settings className="w-5 h-5" /> Settings
           </Link>

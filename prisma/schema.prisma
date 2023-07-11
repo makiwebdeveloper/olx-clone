@@ -113,3 +113,8 @@ model Category {
   categoryGroup   CategoryGroup @relation(fields: [categoryGroupId], references: [id], onDelete: Cascade)
   categoryGroupId String        @map("category_group_id")
 }
+
+model Pagination {
+  id      String @id @default("1")
+  perPage Int
+}

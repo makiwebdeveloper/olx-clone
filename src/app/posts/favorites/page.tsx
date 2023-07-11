@@ -1,5 +1,6 @@
 import { getFavorites } from "@/services/favorites";
 import FavoritePosts from "./components/FavoritePosts";
+import { getPerPage } from "@/services/pagination";
 
 interface Props {
   searchParams: { page: string };
@@ -7,6 +8,7 @@ interface Props {
 
 export default async function Favorites({ searchParams }: Props) {
   const favoritesData = await getFavorites(Number(searchParams.page) || 1);
+  const perPage = (await getPerPage()) || 1;
 
   return (
     <main className="p-6 sm:p-0">
@@ -19,6 +21,7 @@ export default async function Favorites({ searchParams }: Props) {
       <FavoritePosts
         initialFavorites={favoritesData}
         currentPage={Number(searchParams.page) || 1}
+        perPage={perPage}
       />
     </main>
   );

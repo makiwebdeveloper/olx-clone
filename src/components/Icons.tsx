@@ -15,6 +15,7 @@ import {
   ChevronsUpDown,
   XSquare,
   Loader2,
+  LayoutDashboard,
 } from "lucide-react";
 
 const Icons = {
@@ -33,6 +34,7 @@ const Icons = {
   chevronsUpDown: ChevronsUpDown,
   x: XSquare,
   loader: Loader2,
+  dashboard: LayoutDashboard,
   logo: (props: LucideProps) => (
     <svg viewBox="18.832 22.321 330.281 188.327" {...props}>
       <g

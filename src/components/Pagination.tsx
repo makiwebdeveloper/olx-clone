@@ -5,19 +5,21 @@ import Button from "./ui/Button";
 import { useEffect, useState, useTransition } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
-import { postsPerPage } from "@/utils";
+
 import Icons from "./Icons";
 
 interface Props {
   dataLength: number;
   currentPage: number;
   className?: string;
+  perPage: number;
 }
 
 export default function Pagination({
   dataLength,
   currentPage,
   className,
+  perPage,
 }: Props) {
   const [screenSize, setScreenSize] = useState({
     width: 640,
@@ -26,7 +28,6 @@ export default function Pagination({
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-  const perPage = postsPerPage;
 
   const paginationRange = usePagination({
     currentPage,

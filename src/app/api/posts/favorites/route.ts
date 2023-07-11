@@ -1,7 +1,7 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { FavoriteSelect } from "@/services/favorites";
-import { postsPerPage } from "@/utils";
+import { getPerPage } from "@/services/pagination";
 
 export async function GET(req: Request) {
   try {
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
 
     // PAGINATION
     if (page) {
-      const perPage = postsPerPage;
+      const perPage = (await getPerPage()) || 1;
       const currentPage = Number(page) || 1;
       const skip = (currentPage - 1) * perPage;
 
