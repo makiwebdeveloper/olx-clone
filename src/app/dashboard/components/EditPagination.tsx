@@ -4,14 +4,13 @@ import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { useToast } from "@/hooks/useToast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 
 interface Props {}
 
 export default function EditPagination({}: Props) {
-  const queryClient = useQueryClient();
   const { toast } = useToast();
 
   const [perPage, setPerPage] = useState("");
@@ -24,7 +23,6 @@ export default function EditPagination({}: Props) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["categories"]);
         setPerPage("");
         toast({
           title: "Success",
