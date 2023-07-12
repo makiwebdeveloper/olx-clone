@@ -16,13 +16,17 @@ interface Props {
 }
 
 export default async function page({ params }: Props) {
-  const post = await getPostById(params.id);
+  const postFetchData = getPostById(params.id);
+  const favoritesFetchData = getFavorites();
+
+  const [post, favoritesData] = await Promise.all([
+    postFetchData,
+    favoritesFetchData,
+  ]);
 
   if (!post) {
     redirect("/");
   }
-
-  const favoritesData = await getFavorites();
 
   return (
     <main className="sm:space-y-6">

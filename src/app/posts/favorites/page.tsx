@@ -7,8 +7,15 @@ interface Props {
 }
 
 export default async function Favorites({ searchParams }: Props) {
-  const favoritesData = await getFavorites(Number(searchParams.page) || 1);
-  const perPage = (await getPerPage()) || 1;
+  const favoritesFetchData = await getFavorites(Number(searchParams.page) || 1);
+  const perPageFetchData = getPerPage();
+
+  const [favoritesData, perPageData] = await Promise.all([
+    favoritesFetchData,
+    perPageFetchData,
+  ]);
+
+  const perPage = perPageData || 1;
 
   return (
     <main className="p-6 sm:p-0">

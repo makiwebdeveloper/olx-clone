@@ -15,24 +15,34 @@ interface Props {
 export const revalidate = 60;
 
 export default async function Home({ searchParams }: Props) {
-  const session = await getAuthSession();
-  const categories = await getCategories();
+  const sessionFetchData = getAuthSession();
+  const categoriesFetchData = getCategories();
+  const postsFetchData = getPosts(searchParams);
+  const favoritesFetchData = getFavorites();
+  const perPageFetchData = getPerPage();
 
-  const { posts, length: postsLength } = await getPosts(searchParams);
-  const favoritesData = await getFavorites();
-  const perPage = (await getPerPage()) || 1;
+  const [session, categories, postsData, favoritesData, perPageData] =
+    await Promise.all([
+      sessionFetchData,
+      categoriesFetchData,
+      postsFetchData,
+      favoritesFetchData,
+      perPageFetchData,
+    ]);
+
+  const perPage = perPageData || 1;
 
   return (
     <main className="p-6 sm:p-0">
       <Search categories={categories} />
       <Posts
-        posts={posts}
+        posts={postsData.posts}
         initialFavorites={favoritesData?.favorites || null}
         isAuth={!!session?.user}
       />
       <Pagination
         currentPage={Number(searchParams.page) || 1}
-        dataLength={postsLength}
+        dataLength={postsData.length}
         className="center"
         perPage={perPage}
       />

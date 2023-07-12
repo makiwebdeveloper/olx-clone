@@ -1,17 +1,9 @@
-[X] - Post page
-[X] - Favorites page
-[X] - Profile page 
-[X] - Settings
-
-
-
-+--- not required ---+
 [ ] - try catch services
 [ ] - api try catch
 [ ] - Refactoring
 [ ] - title, desc styles
-[ ] - parallel fetching
+[X] - parallel fetching
 
 [ ] - SEO
 [ ] - Price convertation (usd => uah)
-[ ] - admin dashboard (+ change pagination options)
+[X] - admin dashboard (+ change pagination options)

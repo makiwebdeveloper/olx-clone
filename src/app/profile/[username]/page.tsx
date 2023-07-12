@@ -24,8 +24,19 @@ interface Props {
 export const revalidate = 60;
 
 export default async function Profile({ params, searchParams }: Props) {
-  const user = await getUserByUsername(params.username);
-  const session = await getAuthSession();
+  const userFetchData = getUserByUsername(params.username);
+  const sessionFetchData = getAuthSession();
+  const favoritesFetchData = getFavorites();
+  const perPageFetchData = getPerPage();
+
+  const [user, session, favoritesData, perPageData] = await Promise.all([
+    userFetchData,
+    sessionFetchData,
+    favoritesFetchData,
+    perPageFetchData,
+  ]);
+
+  const perPage = perPageData || 1;
 
   const { posts, length: postsLength } = await getPosts({
     userId: user?.id,
@@ -37,8 +48,6 @@ export default async function Profile({ params, searchParams }: Props) {
     currency: "",
     page: searchParams.page,
   });
-  const favoritesData = await getFavorites();
-  const perPage = (await getPerPage()) || 1;
 
   if (!user) {
     notFound();
