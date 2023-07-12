@@ -1,4 +1,6 @@
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { Role } from "@prisma/client";
 
 export async function GET() {
   const categories = await db.categoryGroup.findMany({
@@ -18,14 +20,26 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const { name, categoryGroupId } = await req.json();
+  try {
+    const session = await getAuthSession();
 
-  const category = await db.category.create({
-    data: {
-      name,
-      categoryGroupId,
-    },
-  });
+    if (!session || session.user.role !== Role.ADMIN) {
+      return new Response("Forbidden", { status: 403 });
+    }
 
-  return new Response(JSON.stringify(category));
+    const { name, categoryGroupId } = await req.json();
+
+    const category = await db.category.create({
+      data: {
+        name,
+        categoryGroupId,
+      },
+    });
+
+    return new Response(JSON.stringify(category));
+  } catch (error) {
+    return new Response("Failed to create category. Please try later", {
+      status: 500,
+    });
+  }
 }
