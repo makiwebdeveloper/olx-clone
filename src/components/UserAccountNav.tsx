@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -88,14 +88,16 @@ export default function UserAccountNav({ user }: Props) {
             <Icons.user className="w-5 h-5" /> Profile
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer flex items-center gap-2"
-        >
-          <Link href={`/dashboard`}>
-            <Icons.dashboard className="w-5 h-5" /> Dashboard
-          </Link>
-        </DropdownMenuItem>
+        {user.role === Role.ADMIN ? (
+          <DropdownMenuItem
+            asChild
+            className="cursor-pointer flex items-center gap-2"
+          >
+            <Link href={`/dashboard`}>
+              <Icons.dashboard className="w-5 h-5" /> Dashboard
+            </Link>
+          </DropdownMenuItem>
+        ) : null}
         <DropdownMenuItem
           asChild
           className="cursor-pointer flex items-center gap-2"

@@ -1,4 +1,10 @@
 import EditProfileForm from "@/components/EditProfileForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Settings | Olx Clone",
+  description: "Settings page for change/edit your user data",
+};
 
 export default function Settings() {
   return (

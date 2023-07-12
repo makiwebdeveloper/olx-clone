@@ -8,10 +8,22 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { getFavorites } from "@/services/favorites";
 import ToggleFavoriteButton from "@/components/ToggleFavoriteButton";
+import { Metadata } from "next";
 
 interface Props {
   params: {
     id: string;
+  };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = params;
+
+  const post = await getPostById(id);
+
+  return {
+    title: `${post?.title} | Olx Clone`,
+    description: post?.description,
   };
 }
 

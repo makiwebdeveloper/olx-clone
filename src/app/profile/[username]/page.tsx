@@ -2,13 +2,14 @@ import Icons from "@/components/Icons";
 import Pagination from "@/components/Pagination";
 import Posts from "@/components/Posts";
 import UserAvatar from "@/components/UserAvatar";
-import Button, { buttonVariants } from "@/components/ui/Button";
+import { buttonVariants } from "@/components/ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 import { getFavorites } from "@/services/favorites";
 import { getPerPage } from "@/services/pagination";
 import { getPosts } from "@/services/posts";
 import { getUserByUsername } from "@/services/users";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -18,6 +19,14 @@ interface Props {
   };
   searchParams: {
     page: string;
+  };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username } = params;
+
+  return {
+    title: `${username} | Olx Clone`,
   };
 }
 

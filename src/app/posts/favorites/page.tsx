@@ -1,6 +1,12 @@
 import { getFavorites } from "@/services/favorites";
 import FavoritePosts from "./components/FavoritePosts";
 import { getPerPage } from "@/services/pagination";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Favorites | Olx Clone",
+  description: "In this page you can see your favorites page",
+};
 
 interface Props {
   searchParams: { page: string };

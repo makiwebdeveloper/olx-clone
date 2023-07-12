@@ -7,6 +7,13 @@ import Pagination from "@/components/Pagination";
 import { getFavorites } from "@/services/favorites";
 import { getAuthSession } from "@/lib/auth";
 import { getPerPage } from "@/services/pagination";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | Olx Clone",
+  description:
+    "The OLX marketplace is a platform for buying and selling services and goods such as electronics, fashion items, furniture, household goods, cars and bikes",
+};
 
 interface Props {
   searchParams: IFilters;

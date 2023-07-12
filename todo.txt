@@ -1,8 +1,7 @@
-[ ] - api try catch
+[X] - api try catch
 [ ] - Refactoring
 [ ] - title, desc styles
 [X] - parallel fetching
 
-[ ] - SEO
-[ ] - Price convertation (usd => uah)
+[X] - metadata
 [X] - admin dashboard (+ change pagination options)

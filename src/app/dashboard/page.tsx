@@ -5,6 +5,12 @@ import {
   EditPagination,
   GiveRole,
 } from "./components";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Olx Clone",
+  description: "In this page you can change data of Olx Clone application",
+};
 
 export default async function Dashboard() {
   const categories = await getCategories();

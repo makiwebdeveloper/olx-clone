@@ -1,6 +1,12 @@
 import { getAuthSession } from "@/lib/auth";
 import GoogleButton from "./components/GoogleButton";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Auth | Olx Clone",
+  description: "Auth page for log in or sign up",
+};
 
 export default async function Auth() {
   const session = await getAuthSession();

@@ -1,5 +1,11 @@
 import { getCategories } from "@/services/categories";
 import CreatePostForm from "@/components/CreatePostForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Create post | Olx Clone",
+  description: "Page for creation new post in Olx Clone applocation",
+};
 
 export const revalidate = 3600;
 
