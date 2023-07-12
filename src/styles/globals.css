@@ -81,4 +81,11 @@
   ::selection {
     background: rgb(209 250 229);
   }
+
+  .title {
+    @apply text-4xl 2xl:text-6xl font-bold;
+  }
+  .description {
+    @apply text-slate-400;
+  }
 }

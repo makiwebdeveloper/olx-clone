@@ -1,7 +1,0 @@
-[X] - api try catch
-[ ] - Refactoring
-[ ] - title, desc styles
-[X] - parallel fetching
-
-[X] - metadata
-[X] - admin dashboard (+ change pagination options)
