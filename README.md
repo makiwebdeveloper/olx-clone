@@ -4,6 +4,17 @@ It is a fullstack clone of the famous ukrainian application Olx with basic featu
 
 The [OLX marketplace](https://www.olx.ua/uk/) is a platform for buying and selling services and goods such as electronics, fashion items, furniture, household goods, cars and bikes.
 
+#### Stack
+
+- TypeScript
+- React.js
+- Next.js
+- TailwindCSS
+- Next auth
+- PrismaORM
+- React Hook Form + Zod
+- Shadcn ui
+
 #### What are the pages?
 
 - Auth
